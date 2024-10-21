@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch API</title>
+    <link rel="stylesheet" href="t1c.css">
+    <link href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" sizes="16x16" type="image" href="icons8-star-16.png">
+    
+</head>
+<body>
+    <!--div do navegador-->
+    <div id="nav-placeholder"></div>
+
+<!--função para pegar o nav.html e mostrar em todas as páginas-->
+<script>
+     function loadNav() {
+            fetch('nav.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('nav-placeholder').innerHTML = data;
+                })
+                        
+            .catch(error => console.error('Não foi possível carregar o navegador:', error))
+                        }
+
+            loadNav()
+</script>
+
+    <!--primeira div com definição-->
+    <div class="primeiro">
+        <h1>Fetch API</h1>
+            <p>O fetch api pega um recurso de um servidor e devolve uma promise.</p>
+    </div>
+    
+    <!--segunda div com exemplo de código-->
+    <center>
+    <div class="exp">
+        <h2>Exemplo:</h2>
+            <table>
+                <th class="exp1">
+                <code>
+                    getTexto("página.txt");<br><br>
+                    async function getTexto(arquivo) {<br>
+                        let x = await fetch(arquivo);<br>
+                        let y = await x.texto();<br>
+                        minhaTela(y);<br>
+                    documentgetElementById("teste").innerHTML = y;<br>
+                    }
+                </code>
+                </th>
+            </table>
+    </div>
+    </center>
+
+    <!--terceira div com lista de vantagens-->
+    <div>
+        <h2>Vantagens</h2>
+            <ul>
+                <li>Fetch é nativo do JavaScrip API, não precisa de bibliotecas
+                     adicionais.</li><br>
+                <li>Usa promises, facilita pedidos assíncronos.</li><br>
+                <li>A configuração permite usar em casos simples.</li><br><br>
+            </ul>
+    </div>
+
+    <!--quarta div com lista de desvantagens-->
+    <div>
+        <h2>Desvantagens</h2>
+            <ul>
+                <li>Não dá para usar em navegadores antigos.</li><br>
+                <li>O uso é complicado para configurações avançadas, como timeout.</li><br>
+                <li>As respostas devem ser manualmente transformadas para o JSON.</li>
+            </ul>
+    </div>
+
+</body>
+</html>

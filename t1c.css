@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap'); /*fonte*/
+
+body{
+    width: 100%;
+    background-color: lightsteelblue;
+    margin: auto;
+    font-family: Play;
+}
+
+play-regular {
+    font-family: "Play", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+nav{
+    overflow: hidden;
+    background-color: darkcyan;
+    padding: 50px;
+}
+
+nav ul{ /*navegador/lista*/
+    width: auto;
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+li{/*itens da lista*/
+    width: 50%;
+}
+
+a{/*cor da fonte no navegador*/
+    text-decoration-line: none;
+    color: lightblue;
+}
+
+h1{/*título*/
+    text-align: center;
+}
+
+h2{/*título, parágrafo*/
+    text-align: left;
+    text-indent: 2cm;
+}
+
+p{/*parágrafo no meio*/
+    text-align: center;
+}
+
+div table{ /*os retângulos dos exemplos, para mostrar códigos*/
+   width: 470px;
+   height: 260px;
+   background-color:darkcyan;
+   border: 3px solid lightblue;
+   border-radius: 15px;
+   padding: 20px;
+   margin: 20px;
+   display:inline-table;
+   color: lightgray;
+   text-align:left;
+}

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS</title>
+    <link rel="stylesheet" href="t1c.css">
+    <link href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" sizes="16x16" type="image" href="icons8-star-16.png">
+</head>
+<body>
+
+    <!--div do navegador-->
+    <div id="nav-placeholder"></div>
+
+<!--função para pegar o nav.html e mostrar em todas as páginas-->
+<script>
+     function loadNav() {
+            fetch('nav.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('nav-placeholder').innerHTML = data;
+                })
+                        
+            .catch(error => console.error('Não foi possível carregar o navegador:', error))
+                        }
+
+            loadNav()
+</script>
+
+<!--Primeira div com definição-->
+<div class="primeiro">
+    <h1>Async</h1>
+        <p>O Async pode ser colocado antes de uma função. Esta função retorna uma promise.<br> 
+            Os valores são agrupados na promise automaticamente.
+        </p>
+</div>
+
+<!--Div com primeiro exemplo-->
+<center>
+<div class="exp">
+    <h2>Exemplo 1</h2>
+        <table>
+            <th class="exp1">
+            <code>
+                async function f() {
+                    return Promise.resolve(1);
+                }
+
+                f().then(alert);<br><br>
+
+                Retorna:<br>
+
+                1
+            </code>
+            </th>
+        </table>
+</div>
+</center>
+
+<!--Terceira div com definição de Await-->
+<center>
+<div class="segundo">
+    <h1>Await</h1>
+        <p>Funciona apenas em funções async. Este
+             comando espera até a promessa terminar e<br>
+             retorna o resultado. Await suspende a função
+              enquanto a promise termina, e<br> depois continua
+               com o resultado da promise.</p>
+</div>
+
+<!--Quarta div com o segundo exemplo-->
+<div class="exs">
+    <h2>Exemplo 2</h2>
+        <table>
+            <th class="exs1">
+            <code>
+                async function f() {<br>
+                    let promise = new Promise(resolve/reject) => {<br>
+                        setTimeout(() => resolve("Finalizado!"), 3000)<br>
+                    });<br>
+
+                    let result = await promise;<br>
+
+                    alert(result);<br>
+                }<br>
+
+                f()<br><br>
+
+                Retorna:<br>
+
+                Finalizado!
+            </code>
+            </th>
+        </table>
+</div>
+</center>
+
+<!--Quinta div com uma lista de vantagens-->
+<div>
+    <h2>Vantagens</h2>
+        <ul>
+            <li>A sintaxe é direta e fácil de entender.</li><br>
+            <li>É fácil corrigir os erros em código assíncrono,
+                 pois o código vira síncrono<br> durante a correção.</li><br><br>
+        </ul>
+</div>
+
+<!--Sexta div com uma lista de desvantagens-->
+<div>
+    <h2>Desvantagens</h2>
+        <ul>
+            <li>Precisa tomar cuidado com os erros, se passarem 
+                despercebidos podem<br> ser mais dificeis de corrigir.</li><br>
+            <li>O await pode bloquear a execução do código, se for 
+                usado em loops.</li>
+        </ul>
+</div>
+
+</body>
+</html>

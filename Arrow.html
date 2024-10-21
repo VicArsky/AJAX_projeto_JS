@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS</title>
+    <link rel="stylesheet" href="t1c.css">
+    <link href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" sizes="16x16" type="image" href="icons8-star-16.png">
+</head>
+<body>
+    
+<div id="nav-placeholder"></div>
+
+<!--função para pegar o nav.html e mostrar em todas as páginas-->
+<script>
+     function loadNav() {
+            fetch('nav.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('nav-placeholder').innerHTML = data;
+                })
+                        
+            .catch(error => console.error('Não foi possível carregar o navegador:', error))
+                        }
+
+            loadNav()
+</script>
+
+<!--Primeira div com definição-->
+<div class="primeiro">
+    <h1>Arrow Functions</h1>
+        <p>Arrow Functions (funções de seta) são uma maneira mais curta
+         e moderna de escrever funções em JavaScript,<br> usando uma "seta" 
+         (=>). Elas foram introduzidas para deixar o código mais limpo 
+         e fácil de ler.</p>
+</div>
+
+<!--Segunda div com exemplos de códigos-->
+<center>
+<div class="exp">
+    <h2>Exemplo:</h2>
+        <table>
+            <th class="exp1">
+            <code>
+                Função normal<br><br>
+                function Carro() {<br>
+                    this.velocidade = 0;<br>
+                    setTimeout(function() {<br>
+                        this.velocidade++;<br>
+                        console.log(this.velocidade);<br>
+                    }, 1000);<br>
+                }<br>
+                const meuCarro = new Carro();
+            </code>
+            </th>
+        </table>
+        <table>
+            <th class="exp2">
+            <code>
+                Com Arrow Function<br><br>
+                function Carro() {<br>
+                    this.velocidade = 0;<br>
+                    setTimeout(() => {<br>
+                        this.velocidade++;<br>
+                        console.log(this.velocidade);<br>
+                    }, 1000);<br>
+                }<br>
+                
+                const meuCarro = new Carro();
+                
+            </code>
+            </th>
+        </table>
+</div>
+</center>
+
+<div class="segundo">
+    <h2>Diferenças principais em relação às funções normais:</h2>
+        <p1><b>Sintaxe mais curta:</b></p1>
+    <ul>
+        <li>As Arrow Functions são mais compactas, deixando o
+             código mais simples.</li><br><br>
+        <li>Em vez de escrever:
+            <table>
+                <th class="ex1">
+                <code>
+                    function soma(a, b) {<br>
+                        return a + b;<br>
+                    }<br><br>
+                    Com arrow function fica assim:<br><br>
+                    const soma = (a, b) => a + b;
+                </code>
+                </th>
+            </table>
+        </li><br><br>
+        <li>Se a função tiver apenas uma linha de código (um retorno), 
+            você nem precisa<br> da palavra return ou das chaves {}.
+        </li><br><br>
+    </ul>
+        <p2><b>this diferente:</b></p2>
+        <ul>
+            <li>Em funções normais, o valor de this pode mudar dependendo
+                 de como a<br> função é chamada (por exemplo, ele pode se 
+                 referir ao objeto que <br>chamou a função).
+            </li><br><br>
+            <li>Já nas Arrow Functions, o this é "fixo". Ele pega o valor 
+                de this do local onde <br>a função foi criada e não muda, 
+                mesmo se for chamada de outra forma.</li>
+        </ul>
+</div>
+
+<div>
+        <h2>Exemplo:</h2>
+            <ul>
+                <li>Com uma função normal:</li>
+            </ul>
+        <table>
+            <th class="exp1">
+            <code>
+                function Carro() {<br>
+                    this.velocidade = 0;<br>
+                    setTimeout(function() {<br>
+                        this.velocidade++;<br>
+                        console.log(this.velocidade);<br>
+                    }, 1000);<br>
+                }<br><br>
+                
+                const meuCarro = new Carro();
+                
+            </code>
+            </th>
+        </table>
+        <ul>
+            <li>Com arrow function:</li>
+        </ul>
+        <table>
+            <th class="exp2">
+                <code>
+                    function Carro() {<br>
+                        this.velocidade = 0;<br>
+                        setTimeout(() => {<br>
+                            this.velocidade++;<br>
+                            console.log(this.velocidade);<br>
+                        }, 1000);<br>
+                    }<br><br>
+                    
+                    const meuCarro = new Carro();
+                    
+                </code>
+            </th>
+        </table>
+</div>
+
+<!--um item-->
+    <ul>
+        <li>Nesse caso, a Arrow Function é útil porque ela mantém o this dentro do carro, então a velocidade aumenta corretamente.
+        </li>
+    </ul>
+
+<!--Div com exemplos e explicação-->
+<div class="exp">
+    <h2>Não podem ser usada como funções construtoras:</h2>
+        <ul>
+            <li>Funções normais podem ser usadas para criar 
+                objetos usando new:
+            </li>
+        </ul>
+        <table>
+            <th class="exp1">
+                <code>
+                    function Pessoa(nome) {<br>
+                        this.nome = nome;<br>
+                    }<br><br>
+                    
+                    const eu = new Pessoa("Yuri");<br>
+                    console.log(eu.nome);
+                    
+                </code>
+            </th>
+        </table>
+        <table>
+            <th class="exp2">
+                <code>
+                    const Pessoa = (nome) => {<br>
+                        this.nome = nome;<br>
+                    };<br><br>
+                    
+                    const eu = new Pessoa("Yuri");
+                    
+                </code>
+            </th>
+        </table>
+</div>
+
+</body>
+</html>
