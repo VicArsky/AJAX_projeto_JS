@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultar CEP</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff; 
+            padding: 20px;
+        }
+
+        h1 {
+            color: #00509e; 
+            text-align: center;
+        }
+
+        h2 {
+            color: #00509e; 
+        }
+
+        input[type="text"], input[type="text"]:focus {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 2px solid #009e60; 
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #009e60; 
+            color: white;
+            border: none;
+            padding: 10px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 32%;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #094b33; 
+        }
+
+        form {
+            background-color: #e0f7fa; 
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            color: #00509e; 
+        }
+
+        input[readonly] {
+            background-color: #ffffff;
+            border: 2px solid #00509e; 
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 5px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .buttons-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Consulta de CEP</h1>
+    <input type="text" id="cep" placeholder="Digite o CEP" maxlength="9">
+    <div class="buttons-container">
+        <button onclick="consultarCepXML()">AJAX</button>
+        <button onclick="consultarCepFetch()">Fetch API</button>
+        <button onclick="consultarCepAsync()">Async/Await</button>
+    </div>
+
+    <h2>Dados do Endereço:</h2>
+    <form>
+        <label for="logradouro">Logradouro:</label>
+        <input type="text" id="logradouro" readonly>
+
+        <label for="complemento">Complemento:</label>
+        <input type="text" id="complemento" readonly>
+
+        <label for="bairro">Bairro:</label>
+        <input type="text" id="bairro" readonly>
+
+        <label for="localidade">Cidade:</label>
+        <input type="text" id="localidade" readonly>
+
+        <label for="uf">UF:</label> <!-- Alterado aqui de "Estado" para "UF" -->
+        <input type="text" id="uf" readonly>
+    </form>
+
+    <script>
+        // função que usa ajax para pegar os dados de um cep digitado
+        function consultarCepXML() {
+            // pega o valor digitado pelo usuário e tira tudo que não for número
+            const cep = document.getElementById('cep').value.replace(/\D/g, '');
+            // se o usuário não digitar nada, mostra um aviso e para a função
+            if (!cep) {
+                alert('insira um cep válido.');
+                return;
+            }
+
+            // cria um pedido (requisição) para o servidor usando xmlhttprequest
+            const xhr = new XMLHttpRequest();
+            // prepara o pedido, dizendo que vai buscar (GET) as informações do cep na api do viacep
+            xhr.open('GET', `https://viacep.com.br/ws/${cep}/json/`);
+            // quando a resposta do servidor chega, essa função é executada
+            xhr.onreadystatechange = function() {
+                // verifica se a resposta chegou completa (estado 4) e se deu tudo certo (status 200)
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    // transforma o texto da resposta em um objeto que o javascript entende (json)
+                    const dados = JSON.parse(xhr.responseText);
+                    // chama a função que preenche o formulário com os dados recebidos
+                    preencherFormulario(dados);
+                }
+            };
+            // manda o pedido (requisição) para o servidor
+            xhr.send();
+        }
+
+        // função que usa fetch api para pegar os dados de um cep digitado
+        function consultarCepFetch() {
+            // pega o valor digitado pelo usuário e tira tudo que não for número
+            const cep = document.getElementById('cep').value.replace(/\D/g, '');
+            // se o usuário não digitar nada, mostra um aviso e para a função
+            if (!cep) {
+                alert('insira um cep válido');
+                return;
+            }
+
+            // faz um pedido (requisição) usando fetch para pegar as informações do cep
+            fetch(`https://viacep.com.br/ws/${cep}/json/`)
+                // pega a resposta e transforma em um objeto json (que o javascript entende)
+                .then(response => response.json())
+                // depois de transformar, usa os dados para preencher o formulário
+                .then(dados => preencherFormulario(dados))
+                // se der algum erro no processo, mostra um aviso com o erro
+                .catch(error => alert('erro na consulta, verifique se o cep é válido '));
+        }
+
+        // função que usa async/await para pegar os dados de um cep digitado
+        async function consultarCepAsync() {
+            // pega o valor digitado pelo usuário e tira tudo que não for número
+            const cep = document.getElementById('cep').value.replace(/\D/g, '');
+            // se o usuário não digitar nada, mostra um aviso e para a função
+            if (!cep) {
+                alert('insira um cep válido');
+                return;
+            }
+
+            try {
+                // faz o pedido (requisição) usando fetch e espera (await) a resposta chegar
+                const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+                // transforma a resposta em um objeto json que o javascript entende
+                const dados = await response.json();
+                // usa os dados para preencher o formulário
+                preencherFormulario(dados);
+            } catch (error) {
+                // se der algum erro, mostra um aviso com a mensagem do erro
+                alert('erro na consulta, verifique se o cep é válido');
+            }
+        }
+
+        // função que preenche os campos do formulário com os dados recebidos
+        function preencherFormulario(dados) {
+            // verifica se deu algum erro na resposta (cep não encontrado)
+            if (dados.erro) {
+                alert('cep não encontrado');
+                return;
+            }
+
+            // preenche cada campo do formulário com as informações do cep, ou deixa vazio se não tiver nada
+            document.getElementById('logradouro').value = dados.logradouro || '';
+            document.getElementById('complemento').value = dados.complemento || '';
+            document.getElementById('bairro').value = dados.bairro || '';
+            document.getElementById('localidade').value = dados.localidade || '';
+            document.getElementById('uf').value = dados.uf || '';
+        }
+    </script>
+</body>
+</html>
